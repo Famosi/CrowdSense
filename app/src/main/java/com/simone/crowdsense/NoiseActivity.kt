@@ -49,46 +49,8 @@ class NoiseActivity : AppCompatActivity() {
 
         } else {
             start()
-            mProgressBar = findViewById(R.id.progress_bar)
-            mProgressBarStatus = 0
-
-            mPulsator = findViewById(R.id.pulsator)
-            mPulsator!!.start()
-
-            mActivityPerformImg = findViewById(R.id.type_to_perform_img)
-            mActivityPerformImg!!.background = getDrawable(R.drawable.ic_noise)
-
-            Thread {
-                run {
-                    while (mProgressBarStatus < 100) {
-                        mProgressBarStatus++
-                        android.os.SystemClock.sleep(50)
-                        mHandler.post {
-                            run {
-                                mProgressBar!!.progress = mProgressBarStatus
-                            }
-                        }
-                    }
-                    mHandler.post {
-                        run {
-                            val lenght = sensorArrayNoise.count()
-
-                            db = 0.0
-
-                            val value = getMedia(lenght.toFloat()).toInt()
-
-                            val returnIntent = Intent()
-
-                            returnIntent.putExtra("result", "" + value)
-                            setResult(Activity.RESULT_OK, returnIntent)
-                            stop()
-                            finish()
-                        }
-                    }
-                }
-            }.start()
+            animation()
         }
-
     }
 
     fun getMedia(len : Float) : Float{
@@ -103,8 +65,8 @@ class NoiseActivity : AppCompatActivity() {
         if (requestCode == REQUEST_NOISE_CAPTURE) {
             // If request is cancelled, the result arrays are empty.
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                val bundle = Bundle()
-                onCreate(bundle)
+                start()
+                animation()
             } else {
                 sensor_val_txt.text = "Can't use noise"
             }
@@ -144,7 +106,46 @@ class NoiseActivity : AppCompatActivity() {
         }
     }
 
+    fun animation(){
+        mProgressBar = findViewById(R.id.progress_bar)
+        mProgressBarStatus = 0
 
+        mPulsator = findViewById(R.id.pulsator)
+        mPulsator!!.start()
+
+        mActivityPerformImg = findViewById(R.id.type_to_perform_img)
+        mActivityPerformImg!!.background = getDrawable(R.drawable.ic_noise)
+
+        Thread {
+            run {
+                while (mProgressBarStatus < 100) {
+                    mProgressBarStatus++
+                    android.os.SystemClock.sleep(50)
+                    mHandler.post {
+                        run {
+                            mProgressBar!!.progress = mProgressBarStatus
+                        }
+                    }
+                }
+                mHandler.post {
+                    run {
+                        val lenght = sensorArrayNoise.count()
+
+                        db = 0.0
+
+                        val value = getMedia(lenght.toFloat()).toInt()
+
+                        val returnIntent = Intent()
+
+                        returnIntent.putExtra("result", "" + value)
+                        setResult(Activity.RESULT_OK, returnIntent)
+                        stop()
+                        finish()
+                    }
+                }
+            }
+        }.start()
+    }
 
 
     private class RecorderTask(private val recorder: MediaRecorder, val mActivity : NoiseActivity, val sensor_txt : TextView) : TimerTask() {

@@ -20,16 +20,14 @@ import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 const val CHANNEL_ID = "CHANNEL_ID"
-private var id = 0
+private var id_task = 0
+private var id_home = 0
 var running = false
 
 var myIncomingTweets = mutableListOf<Task>()
 var numberOfTasks = 0
 var update = true
 var lastTask : MutableList<String?> = mutableListOf()
-
-
-
 
 class LocationService : IntentService("LocationService") {
 
@@ -92,8 +90,8 @@ class LocationService : IntentService("LocationService") {
                 val mBuilder = setNotificationHome()
                 val notificationManager = NotificationManagerCompat.from(context)
                 numberOfTasks = myIncomingTweets.count()
-                id +=1
-                notificationManager.notify(id, mBuilder.build())
+                id_home +=1
+                notificationManager.notify(id_home, mBuilder.build())
             }
         }
 
@@ -104,9 +102,9 @@ class LocationService : IntentService("LocationService") {
 
             //Send notification only one time
             if (!lastTask.contains(task.ID)){
-                id = id + 1
+                id_task = id_task + 1
                 lastTask.add(task.ID)
-                notificationManager.notify(id, mBuilder.build())
+                notificationManager.notify(id_task, mBuilder.build())
             }
         }
 
@@ -114,10 +112,10 @@ class LocationService : IntentService("LocationService") {
 
             val address = Geocoder(context, Locale.getDefault()).getFromLocation(task.lat!!.toDouble(), task.lon!!.toDouble(), 1)
 
-            val intent = Intent(context, TaskActivity::class.java)
+            val intent = Intent(context, Home::class.java)
                     .putExtra("what", task.what!!.capitalize())
                     .putExtra("issuer", task.issuer)
-                    .putExtra("duration", task.duration )
+                    .putExtra("duration", task.duration)
                     .putExtra("type", task.type)
                     .putExtra("lat", task.lat)
                     .putExtra("lon", task.lon)
@@ -126,11 +124,12 @@ class LocationService : IntentService("LocationService") {
                     .putExtra("ID", task.ID)
 
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
             val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
             val mBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
                     .setSmallIcon(R.mipmap.logo_round)
-                    .setContentTitle(task.what + "")
+                    .setContentTitle("New task")
                     .setContentText("You can perform a new task!")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                     .setContentIntent(pendingIntent)
@@ -140,7 +139,7 @@ class LocationService : IntentService("LocationService") {
         }
 
         fun setNotificationHome() : NotificationCompat.Builder{
-            val intent = Intent(context, TaskActivity::class.java)
+            val intent = Intent(context, Home::class.java)
 
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)

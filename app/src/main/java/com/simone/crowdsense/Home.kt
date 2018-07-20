@@ -102,7 +102,6 @@ class Home : AppCompatActivity(){
         return super.onCreateOptionsMenu(menu)
     }
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.logout ->  {
@@ -156,9 +155,9 @@ class Home : AppCompatActivity(){
             // If request is cancelled, the result arrays are empty.
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 mLocationPermissionGranted = true
-                Toast.makeText(this, "OK to get current position", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Can't get current position", Toast.LENGTH_SHORT).show()
+                mLocationPermissionGranted = false
             }
             return
         }
