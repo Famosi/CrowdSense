@@ -56,4 +56,17 @@
         app:layout_constraintStart_toEndOf="@+id/taskImg"
         app:layout_constraintTop_toBottomOf="@+id/taskWhat" />
 
+    <TextView
+        android:id="@+id/taskIssuer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="2dp"
+        android:text="Issuer"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/taskImg"
+        app:layout_constraintTop_toBottomOf="@+id/taskPlace" />
+
 </android.support.constraint.ConstraintLayout>

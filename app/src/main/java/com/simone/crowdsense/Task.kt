@@ -277,39 +277,8 @@ class TaskActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
-/*
-    private fun galleryAddPic() {
-        val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
-        val f = File(mCurrentPhotoPath)
-        val contentUri = Uri.fromFile(f)
-        mediaScanIntent.data = contentUri
-        this.sendBroadcast(mediaScanIntent)
-    }
 
-    private fun setPic() {
-        // Get the dimensions of the View
-        val targetW = photo_img.getWidth()
-        val targetH = photo_img.getHeight()
 
-        // Get the dimensions of the bitmap
-        val bmOptions = BitmapFactory.Options()
-        bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions)
-        val photoW = bmOptions.outWidth;
-        val photoH = bmOptions.outHeight;
-
-        // Determine how much to scale down the image
-        val scaleFactor = Math.min(photoW/targetW, photoH/targetH)
-
-        // Decode the image file into a Bitmap sized to fill the View
-        bmOptions.inJustDecodeBounds = false;
-        bmOptions.inSampleSize = scaleFactor;
-        bmOptions.inPurgeable = true;
-
-        val bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions)
-        photo_img.setImageBitmap(bitmap)
-    }
-*/
     @Throws(IOException::class)
     private fun createImageFile(): File {
         // Create an image file name

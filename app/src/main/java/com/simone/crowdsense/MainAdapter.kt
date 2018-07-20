@@ -85,8 +85,9 @@ class MainAdapter(private val tweets: Array<Tweets>, private val geocoder: Geoco
             }
             val addresses = geocoder.getFromLocation(task.lat!!.toDouble(), task.lon!!.toDouble(), 1);
 
-            holder?.view?.taskWhat?.text = task.what!!.capitalize()
-            holder?.view?.taskPlace?.text = "${addresses.get(0).getAddressLine(0)}"
+            holder.view.taskWhat?.text = task.what!!.capitalize()
+            holder.view.taskPlace?.text = "${addresses.get(0).getAddressLine(0)}"
+            holder.view.taskIssuer.text = "By @" + task.issuer
 
             when (task.type) {
                 "picture" -> holder?.view?.taskImg?.setImageResource(R.drawable.ic_camera)
@@ -95,6 +96,7 @@ class MainAdapter(private val tweets: Array<Tweets>, private val geocoder: Geoco
                 "light" -> holder?.view?.taskImg?.setImageResource(R.drawable.ic_light)
                 "temperature" -> holder?.view?.taskImg?.setImageResource(R.drawable.ic_temperature)
             }
+
 
             holder?.view.parent_layout.setOnClickListener {
                 val intent = Intent(holder.context, TaskActivity::class.java)
