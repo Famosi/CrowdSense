@@ -70,14 +70,11 @@ class TaskActivity : AppCompatActivity(), OnMapReadyCallback {
 
         map =  getIncomingIntent()
 
-        val ac = id_accept_list
-
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        //TODO: OKTOPERFORM DEVE ESSE VERO
-        if (map!!["type"] != null && !okToPerform(map!!["lat"], map!!["lon"], map!!["radius"])){
+        if (map!!["type"] != null && okToPerform(map!!["lat"], map!!["lon"], map!!["radius"])){
             perform_btn.setOnClickListener {
                 if(map!!["type"] == "RSSI"){
                     val intent = Intent(this, RssiActivity::class.java).apply {
@@ -215,7 +212,7 @@ class TaskActivity : AppCompatActivity(), OnMapReadyCallback {
                     val t = Thread{
                         run {
                             if (intent.hasExtra("tweetID")) {
-                                twitterOauthPost(result + " lx", intent.getStringExtra("tweetID"))
+                                twitterOauthPost(result + " lx", intent.getStringExtra("tweetID"), intent.getStringExtra("issuer"))
                             }
                         }
                     }
@@ -229,7 +226,7 @@ class TaskActivity : AppCompatActivity(), OnMapReadyCallback {
                 val t = Thread{
                     run {
                         if (intent.hasExtra("tweetID")){
-                            twitterPostPhoto(photoFile!!, intent.getStringExtra("tweetID") )
+                            twitterPostPhoto(photoFile!!, intent.getStringExtra("tweetID"), intent.getStringExtra("issuer"))
                         }
                     }
                 }
@@ -243,7 +240,7 @@ class TaskActivity : AppCompatActivity(), OnMapReadyCallback {
                     Toast.makeText(this, result, Toast.LENGTH_LONG).show()
                     val t = Thread{
                         run {
-                            twitterOauthPost(result + " dB", intent.getStringExtra("tweetID"))
+                            twitterOauthPost(result + " dB", intent.getStringExtra("tweetID"), intent.getStringExtra("issuer"))
                         }
                     }
                     t.start()
@@ -256,7 +253,7 @@ class TaskActivity : AppCompatActivity(), OnMapReadyCallback {
                     Toast.makeText(this, result, Toast.LENGTH_LONG).show()
                     val t = Thread{
                         run {
-                            twitterOauthPost(result + " dBm", intent.getStringExtra("tweetID"))
+                            twitterOauthPost(result + " dBm", intent.getStringExtra("tweetID"), intent.getStringExtra("issuer"))
                         }
                     }
                     t.start()
@@ -275,7 +272,7 @@ class TaskActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             if (photoFile != null){
                 val photoURI = FileProvider.getUriForFile(this, "com.simone.crowdsense.fileprovider", photoFile)
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
             }
         }

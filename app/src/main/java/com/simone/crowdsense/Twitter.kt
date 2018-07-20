@@ -88,7 +88,7 @@ fun nonceGenerator(): String {
 
 fun twitterOauth(): Request{
 
-    var timestamp = Timestamp(System.currentTimeMillis())
+    val timestamp = Timestamp(System.currentTimeMillis())
     val ts = URLEncoder.encode((timestamp.getTime()/1000).toString(), "ASCII")
     val nonce = URLEncoder.encode(nonceGenerator(), "ASCII")
 
@@ -102,7 +102,7 @@ fun twitterOauth(): Request{
     val baseUrlEncode = URLEncoder.encode(baseUrl, "ASCII")
 
     val baseParams = "GET&$baseUrlEncode&$paramsEncode"
-    var signingKey = URLEncoder.encode("tX6buaz7KFV2GWkvGtMrZccW3GMUXu4VdkxsTbMb1pDD3FCl2t", "ASCII") + "&" + URLEncoder.encode("ln9kzDDEARF2up4B5sYhAYyILAZdnnTQM9zbwQfNrt3bs", "ASCII")
+    val signingKey = URLEncoder.encode("tX6buaz7KFV2GWkvGtMrZccW3GMUXu4VdkxsTbMb1pDD3FCl2t", "ASCII") + "&" + URLEncoder.encode("ln9kzDDEARF2up4B5sYhAYyILAZdnnTQM9zbwQfNrt3bs", "ASCII")
 
     var hmac = HmacSha1Signature.calculateRFC2104HMAC(baseParams, signingKey)
     val bytes = Hex.decodeHex(hmac.toCharArray())
@@ -110,7 +110,7 @@ fun twitterOauth(): Request{
     val base64 = Base64.encodeBase64(bytes)
     hmac = URLEncoder.encode(base64.toString(StandardCharsets.UTF_8), "ASCII")
 
-    var url = "$baseUrl?user_id=$user_id&tweet_mode=$tweet_mode"
+    val url = "$baseUrl?user_id=$user_id&tweet_mode=$tweet_mode"
     val request = Request.Builder()
             .header("Authorization", "OAuth oauth_consumer_key=\"lWjUOd4cZMQjqCbKw4PwY7i4u\", oauth_token=\"985771825425780736-LRyqxRacUVoF51x7hW73CfBpkXpGfHd\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"$ts\", oauth_nonce=\"$nonce\", oauth_version=\"1.0\", oauth_signature=\"$hmac\"")
             .url(url)
@@ -120,7 +120,7 @@ fun twitterOauth(): Request{
 }
 
 
-fun twitterOauthPost(result : String, id : String){
+fun twitterOauthPost(result : String, id : String, issuer : String){
 
     val consumer = CommonsHttpOAuthConsumer(
             "XgedeBPLyC48g4uZBwfJsjsWB",
@@ -130,9 +130,10 @@ fun twitterOauthPost(result : String, id : String){
 
     val ids = id.toLong()
     val resultEncode = URLEncoder.encode(result, "ASCII")
+    val issuerEncode = URLEncoder.encode(issuer, "ASCII")
 
     val httpPost = HttpPost(
-            "https://api.twitter.com/1.1/statuses/update.json?status=%40Simone43663738%20$resultEncode&in_reply_to_status_id=$ids")
+            "https://api.twitter.com/1.1/statuses/update.json?status=%40$issuerEncode%20$resultEncode&in_reply_to_status_id=$ids")
 
     consumer.sign(httpPost)
 
@@ -147,7 +148,7 @@ fun twitterOauthPost(result : String, id : String){
     println(EntityUtils.toString(httpResponse.entity))
 }
 
-fun twitterPostPhoto(photo : File, id : String){
+fun twitterPostPhoto(photo : File, id : String, issuer: String){
 
      val conf =  ConfigurationBuilder()
                                         .setOAuthConsumerKey("XgedeBPLyC48g4uZBwfJsjsWB")
@@ -155,19 +156,13 @@ fun twitterPostPhoto(photo : File, id : String){
                                         .setOAuthAccessToken("1017016558466555910-7TT68vdgfgnqt3CQqguEZljmlHtUNV")
                                         .setOAuthAccessTokenSecret("kZyZERAYkGU7b0bS58VBds2Abb4koBtyylYPtFhz4j9f2").build()
 
-    val auth = OAuthAuthorization(conf)
-
-    //val upload =  ImageUploadFactory(conf).getInstance(auth)
-
     val twitter = TwitterFactory(conf).instance
 
-    val status = StatusUpdate("@Simone43663738")
+    val status = StatusUpdate("@$issuer")
     status.setMedia(photo) // set the image to be uploaded here.
     status.inReplyToStatusId = id.toLong()
 
     twitter.updateStatus(status)
-
-    //val url = upload.upload(photo, "@Simone43663738 id:" + id)
 
 }
 
