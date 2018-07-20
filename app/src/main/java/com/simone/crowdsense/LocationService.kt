@@ -74,7 +74,7 @@ class LocationService : IntentService("LocationService") {
         val user = getSharedPreferences(getString(R.string.preference_file), Context.MODE_PRIVATE)
                 .getString(getString(R.string.user_pref), "username")
 
-        timer!!.scheduleAtFixedRate(LocationTimer(this, user), 0, 10000)
+        timer!!.scheduleAtFixedRate(LocationTimer(this, user), 0, 60000 * 15)
     }
 
 
@@ -96,11 +96,7 @@ class LocationService : IntentService("LocationService") {
                 }
             }
 
-            twitterRequest(twitterOauth(), Geocoder(context, Locale.getDefault()))
-
-            val noftask = numberOfTasks
-            val mtincta = myIncomingTweets.count()
-            val up = update
+            twitterRequest(twitterOauth())
 
             if (myIncomingTweets.count() > numberOfTasks){
                 createNotificationChannel()
@@ -269,7 +265,7 @@ class LocationService : IntentService("LocationService") {
             })
         }
 
-        fun twitterRequest(request: Request, geocoder: Geocoder){
+        fun twitterRequest(request: Request){
             val client = OkHttpClient()
 
             client.newCall(request).enqueue(object: Callback {
@@ -287,7 +283,6 @@ class LocationService : IntentService("LocationService") {
                         for (tweet in tweets.statuses){
                             if (tweet.full_text.startsWith("#LAM_CROWD18")){
                                 val str = tweet.full_text.split("#LAM_CROWD18")[1]
-                                val time = tweet.created_at
                                 val task = Gson().fromJson(str, Task::class.java)
                                 val id = task.ID
                                 if (!myIncomingTweets.any { Task -> Task.ID == id }){
