@@ -51,9 +51,6 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
-var lam_id = "983897673655730178"
-var simone_id = "985771825425780736"
-
 object HmacSha1Signature {
     private val HMAC_SHA1_ALGORITHM = "HmacSHA1"
 
@@ -87,30 +84,28 @@ fun nonceGenerator(): String {
 }
 
 fun twitterOauth(): Request{
-
     val timestamp = Timestamp(System.currentTimeMillis())
     val ts = URLEncoder.encode((timestamp.getTime()/1000).toString(), "ASCII")
     val nonce = URLEncoder.encode(nonceGenerator(), "ASCII")
 
-    val baseUrl = "https://api.twitter.com/1.1/statuses/user_timeline.json"
-    val user_id = URLEncoder.encode(simone_id, "ASCII")
+    val baseUrl = "https://api.twitter.com/1.1/search/tweets.json"
+    val baseUrlEncode = URLEncoder.encode(baseUrl, "ASCII")
 
     val tweet_mode = URLEncoder.encode("extended", "ASCII")
 
-    val params = "oauth_consumer_key=lWjUOd4cZMQjqCbKw4PwY7i4u&oauth_nonce=$nonce&oauth_signature_method=HMAC-SHA1&oauth_timestamp=$ts&oauth_token=985771825425780736-LRyqxRacUVoF51x7hW73CfBpkXpGfHd&oauth_version=1.0&tweet_mode=$tweet_mode&user_id=$user_id"
+    val params = "oauth_consumer_key=lWjUOd4cZMQjqCbKw4PwY7i4u&oauth_nonce=$nonce&oauth_signature_method=HMAC-SHA1&oauth_timestamp=$ts&oauth_token=985771825425780736-LRyqxRacUVoF51x7hW73CfBpkXpGfHd&oauth_version=1.0&q=%23LAM_CROWD18&result_type=recent&tweet_mode=$tweet_mode"
     val paramsEncode = URLEncoder.encode(params, "ASCII")
-    val baseUrlEncode = URLEncoder.encode(baseUrl, "ASCII")
 
     val baseParams = "GET&$baseUrlEncode&$paramsEncode"
     val signingKey = URLEncoder.encode("tX6buaz7KFV2GWkvGtMrZccW3GMUXu4VdkxsTbMb1pDD3FCl2t", "ASCII") + "&" + URLEncoder.encode("ln9kzDDEARF2up4B5sYhAYyILAZdnnTQM9zbwQfNrt3bs", "ASCII")
 
     var hmac = HmacSha1Signature.calculateRFC2104HMAC(baseParams, signingKey)
     val bytes = Hex.decodeHex(hmac.toCharArray())
-
     val base64 = Base64.encodeBase64(bytes)
+
     hmac = URLEncoder.encode(base64.toString(StandardCharsets.UTF_8), "ASCII")
 
-    val url = "$baseUrl?user_id=$user_id&tweet_mode=$tweet_mode"
+    val url = "https://api.twitter.com/1.1/search/tweets.json?q=%23LAM_CROWD18&result_type=recent&tweet_mode=$tweet_mode"
     val request = Request.Builder()
             .header("Authorization", "OAuth oauth_consumer_key=\"lWjUOd4cZMQjqCbKw4PwY7i4u\", oauth_token=\"985771825425780736-LRyqxRacUVoF51x7hW73CfBpkXpGfHd\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"$ts\", oauth_nonce=\"$nonce\", oauth_version=\"1.0\", oauth_signature=\"$hmac\"")
             .url(url)
@@ -118,6 +113,7 @@ fun twitterOauth(): Request{
 
     return request
 }
+
 
 
 fun twitterOauthPost(result : String, id : String, issuer : String){
@@ -167,6 +163,7 @@ fun twitterPostPhoto(photo : File, id : String, issuer: String){
 }
 
 
+class Statuses(val statuses : Array<Tweets>)
 
 class Tweets(val id: String, val full_text: String, val created_at : String)
 

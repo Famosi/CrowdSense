@@ -43,6 +43,8 @@ import android.widget.Toast
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
+import com.twitter.sdk.android.core.models.Tweet
+import org.json.JSONArray
 import java.util.concurrent.TimeUnit
 
 
@@ -60,6 +62,9 @@ class Home : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        id_delete_list = mutableListOf()
+        id_accept_list = mutableListOf()
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -215,10 +220,10 @@ class Home : AppCompatActivity(){
                 if(!body!!.startsWith("[]", true)){
                     val gson = GsonBuilder().create()
 
-                    val tasks = gson.fromJson(body, Array<Tweets>::class.java)
+                    val parseTweet = gson.fromJson(body, Statuses::class.java)
 
                     runOnUiThread {
-                        recyclerView_main.adapter = MainAdapter(tasks, geocoder)
+                        recyclerView_main.adapter = MainAdapter(parseTweet.statuses, geocoder)
                     }
 
                 }

@@ -34,10 +34,6 @@ const val CHANNEL_ID = "CHANNEL_ID"
 private var id = 0
 var running = false
 
-
-var myHandler : Handler? = null
-
-var id_not = 0
 var myIncomingTweets = mutableListOf<Task>()
 var numberOfTasks = 0
 var update = true
@@ -63,18 +59,6 @@ class LocationService : IntentService("LocationService") {
         super.onStartCommand(intent, flags, startId)
         return Service.START_STICKY
     }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        println("RESTART SERVICE")
-        if (timer != null) {
-            timer!!.cancel()
-        }
-        val broadcastIntent = Intent("restart service")
-        sendBroadcast(broadcastIntent)
-    }
-
 
     /**
      * Handle action Foo in the provided background thread with the provided
@@ -253,7 +237,6 @@ class LocationService : IntentService("LocationService") {
                     .retryOnConnectionFailure(false)
                     .build()
 
-
             val url = "http://simone.faggi.tw.cs.unibo.it/api/task/accept?username=$user"
 
             val request = Request.Builder()
@@ -265,9 +248,9 @@ class LocationService : IntentService("LocationService") {
                 override fun onResponse(call: Call?, response: Response?) {
                     val body = response?.body()?.string()
 
-                    println(body)
+                    println(body + " ACCEPT service")
 
-                    if (!body!!.startsWith("<", true)){
+                    if (!body!!.startsWith("<", true) && !body.startsWith("[]", true)){
                         val tasks = Gson().fromJson(body, Array<Task>::class.java)
                         Thread{
                             run {
@@ -296,13 +279,12 @@ class LocationService : IntentService("LocationService") {
                     println(body)
 
                     if (!body!!.startsWith("[]", true)){
+
                         val gson = GsonBuilder().create()
 
-                        val tweets = gson.fromJson(body, Array<Tweets>::class.java)
+                        val tweets = gson.fromJson(body, Statuses::class.java)
 
-                        var task : Task
-
-                        for (tweet in tweets){
+                        for (tweet in tweets.statuses){
                             if (tweet.full_text.startsWith("#LAM_CROWD18")){
                                 val str = tweet.full_text.split("#LAM_CROWD18")[1]
                                 val time = tweet.created_at
