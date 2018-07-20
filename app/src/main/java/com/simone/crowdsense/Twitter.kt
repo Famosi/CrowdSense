@@ -1,17 +1,6 @@
 package com.simone.crowdsense
 
-import android.app.Activity
-import android.database.Cursor
-import android.location.Geocoder
-import android.media.Image
-import android.net.Uri
-import android.provider.ContactsContract
-import android.provider.MediaStore
-import com.google.android.gms.common.internal.service.Common
-import com.google.android.gms.common.util.IOUtils
-import com.google.gson.GsonBuilder
 import okhttp3.*
-import java.io.IOException
 import java.sql.Timestamp
 import java.security.SecureRandom
 import java.net.URLEncoder
@@ -24,32 +13,13 @@ import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 import org.apache.commons.codec.binary.Hex
 import java.nio.charset.StandardCharsets
-import oauth.signpost.OAuthConsumer
-import oauth.signpost.http.HttpRequest
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer
-import com.google.gson.Gson
-import com.simone.crowdsense.R.id.recyclerView_main
-import com.twitter.sdk.android.core.models.Tweet
-import kotlinx.android.synthetic.main.activity_home.*
-import oauth.signpost.OAuth.OUT_OF_BAND
-import oauth.signpost.OAuthProvider
-import oauth.signpost.basic.DefaultOAuthConsumer
-import oauth.signpost.basic.DefaultOAuthProvider
-import oauth.signpost.http.HttpResponse
 import org.apache.http.client.methods.HttpPost
 import org.apache.http.impl.client.DefaultHttpClient
 import org.apache.http.util.EntityUtils
 import twitter4j.*
-import twitter4j.auth.AccessToken
-import twitter4j.auth.OAuthAuthorization
 import twitter4j.conf.ConfigurationBuilder
-import twitter4j.media.ImageUpload
-import twitter4j.media.ImageUploadFactory
-import java.io.BufferedReader
 import java.io.File
-import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
 
 object HmacSha1Signature {
     private val HMAC_SHA1_ALGORITHM = "HmacSHA1"

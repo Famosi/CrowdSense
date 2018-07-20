@@ -333,7 +333,7 @@ class TaskActivity : AppCompatActivity(), OnMapReadyCallback {
         val user = getSharedPreferences(getString(R.string.preference_file), Context.MODE_PRIVATE)
                 .getString(getString(R.string.user_pref), "username")
 
-        val body = FormBody.Builder()
+        val body_post = FormBody.Builder()
                 .add("username", user)
                 .add("id", task.ID.toString())
                 .add("issuer", task.issuer.toString())
@@ -347,7 +347,7 @@ class TaskActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val request = Request.Builder()
                 .url("http://simone.faggi.tw.cs.unibo.it/api/task/accept")
-                .post(body)
+                .post(body_post)
                 .build()
 
         client.newCall(request).enqueue(object: Callback {
@@ -366,14 +366,14 @@ class TaskActivity : AppCompatActivity(), OnMapReadyCallback {
         val user = getSharedPreferences(getString(R.string.preference_file), Context.MODE_PRIVATE)
                 .getString(getString(R.string.user_pref), "username")
 
-        val body = FormBody.Builder()
+        val body_post = FormBody.Builder()
                 .add("username", user)
                 .add("id", task.ID.toString())
                 .build()
 
         val request = Request.Builder()
                 .url("http://simone.faggi.tw.cs.unibo.it/api/task/delete")
-                .post(body)
+                .post(body_post)
                 .build()
 
         client.newCall(request).enqueue(object: Callback {

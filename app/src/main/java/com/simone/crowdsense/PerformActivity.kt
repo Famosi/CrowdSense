@@ -2,7 +2,6 @@ package com.simone.crowdsense
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.PorterDuff
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_perform.*
@@ -11,7 +10,6 @@ import android.hardware.SensorEvent
 import android.hardware.Sensor
 import android.hardware.SensorEventListener
 import android.os.Handler
-import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -25,7 +23,6 @@ class PerformActivity : AppCompatActivity(), SensorEventListener {
 
     private var mProgressBarStatus = 0
     private var mProgressBar: ProgressBar? = null
-    private var mLoadingText: TextView? = null
     private var mHandler = Handler()
 
     private var mActivityPerformImg : ImageView? = null
@@ -104,10 +101,8 @@ class PerformActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onSensorChanged(event: SensorEvent) {
         val sensor_value = event.values[0]
-        // Do something with this sensor data.
         sensor_val_txt.text = "" + sensor_value
         sensorArrayPerform.add(sensor_value)
-
     }
 
     override fun onResume() {
@@ -117,7 +112,7 @@ class PerformActivity : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onPause() {
-        // Be sure to unregister the sensor when the activity pauses.
+        //unregister the sensor when the activity pauses.
         super.onPause()
         mSensorManager!!.unregisterListener(this)
     }

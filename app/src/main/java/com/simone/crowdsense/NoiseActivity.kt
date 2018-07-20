@@ -10,13 +10,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_perform.*
 import java.io.IOException
-import org.apache.commons.logging.LogFactory.release
 import pl.bclogic.pulsator4droid.library.PulsatorLayout
 import java.lang.Math.log10
 import java.util.*
@@ -32,7 +30,6 @@ class NoiseActivity : AppCompatActivity() {
 
     private var mProgressBarStatus = 0
     private var mProgressBar: ProgressBar? = null
-    private var mLoadingText: TextView? = null
     private var mHandler = Handler()
     private var mActivityPerformImg : ImageView? = null
 

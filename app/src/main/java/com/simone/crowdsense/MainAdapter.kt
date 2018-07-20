@@ -1,6 +1,5 @@
 package com.simone.crowdsense
 
-import android.app.ActionBar
 import android.content.Context
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
@@ -11,10 +10,7 @@ import com.google.gson.*
 import kotlinx.android.synthetic.main.task_row.view.*
 import android.location.Geocoder
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
-import android.support.v4.content.ContextCompat.getDrawable
 import android.support.v4.content.ContextCompat.startActivity
-import android.widget.LinearLayout
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,9 +18,6 @@ var incomingTasks = mutableListOf<Task>()
 
 
 class MainAdapter(private val tweets: Array<Tweets>, private val geocoder: Geocoder) : RecyclerView.Adapter<CustomViewHolder>(){
-
-    var params = ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT)
 
     override fun getItemCount(): Int {
         when (tweets.isEmpty()){
@@ -39,7 +32,6 @@ class MainAdapter(private val tweets: Array<Tweets>, private val geocoder: Geoco
     * 0 default
     * 1 okToDisplay
     * 2 noToDisplay
-    *
     */
         val tweet = tweets[position]
 
@@ -83,7 +75,6 @@ class MainAdapter(private val tweets: Array<Tweets>, private val geocoder: Geoco
 
         if(holder.itemViewType == 1){
             val str = tweet.full_text.split("#LAM_CROWD18")[1]
-            val time = tweet.created_at
 
             val task = Gson().fromJson(str, Task::class.java)
 
@@ -120,65 +111,6 @@ class MainAdapter(private val tweets: Array<Tweets>, private val geocoder: Geoco
                 startActivity(holder.context, intent, Bundle())
             }
         }
-
-        /*
-        if (tweet.full_text != "Sample response") {
-
-            val str = tweet.full_text.split("#LAM_CROWD18")[1]
-            val time = tweet.created_at
-
-            val task = Gson().fromJson(str, Task::class.java)
-
-            val id = task.ID
-
-            if (!incomingTasks.any { Task -> Task.ID == id }){
-                incomingTasks.add(task)
-            }
-
-            val ac = incomingTasks
-
-            if (id_delete_list.any { Task -> Task.ID == id } == false && getDifference(time) <= task.duration!!.toInt()) {
-
-                val addresses = geocoder.getFromLocation(task.lat!!.toDouble(), task.lon!!.toDouble(), 1);
-
-                holder?.view?.taskWhat?.text = task.what!!.capitalize()
-                holder?.view?.taskPlace?.text = "${addresses.get(0).getAddressLine(0)}"
-                holder?.view?.taskDuration?.text = "${task.duration} days remain to perform the activity"
-
-
-                when (task.type) {
-                    "picture" -> holder?.view?.taskImg?.setImageResource(R.drawable.ic_camera)
-                    "RSSI" -> holder?.view?.taskImg?.setImageResource(R.drawable.ic_rssi)
-                    "noise" -> holder?.view?.taskImg?.setImageResource(R.drawable.ic_noise)
-                    "light" -> holder?.view?.taskImg?.setImageResource(R.drawable.ic_light)
-                    "temperature" -> holder?.view?.taskImg?.setImageResource(R.drawable.ic_temperature)
-                }
-
-                holder?.view.parent_layout.setOnClickListener {
-                    val intent = Intent(holder.context, TaskActivity::class.java)
-                    intent.putExtra("what", task.what.capitalize())
-                    intent.putExtra("issuer", task.issuer)
-                    intent.putExtra("place", addresses[0].getAddressLine(0))
-                    intent.putExtra("duration", task.duration)
-                    intent.putExtra("type", task.type)
-                    intent.putExtra("lat", task.lat)
-                    intent.putExtra("lon", task.lon)
-                    intent.putExtra("radius", task.radius)
-                    intent.putExtra("ID", task.ID)
-                    intent.putExtra("tweetID", tweet.id)
-                    startActivity(holder.context, intent, Bundle())
-                }
-
-            } else {
-                params!!.height = 0
-                holder.view.layoutParams = params
-            }
-        } else {
-            params!!.height = 0
-            holder.view.layoutParams = params
-        }
-        */
-
     }
 
     fun getDifference(time : String) : Int {

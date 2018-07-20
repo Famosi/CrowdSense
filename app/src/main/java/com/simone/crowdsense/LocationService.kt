@@ -1,34 +1,23 @@
 package com.simone.crowdsense
 
 import android.app.*
-import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
-import android.location.Location.distanceBetween
 import android.location.LocationManager
 import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
-import android.os.Handler
-import android.os.Parcelable
-import android.os.Looper.getMainLooper
-import android.provider.Settings
-import android.provider.Settings.Global.getString
 import android.support.v4.app.NotificationCompat
 import java.util.*
 import android.support.v4.app.NotificationManagerCompat
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.activity_home.*
 import okhttp3.*
 import java.io.IOException
-import java.sql.SQLTransactionRollbackException
 import java.util.concurrent.TimeUnit
-
 
 const val CHANNEL_ID = "CHANNEL_ID"
 private var id = 0

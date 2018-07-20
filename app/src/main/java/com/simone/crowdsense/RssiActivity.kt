@@ -37,7 +37,6 @@ class RssiActivity : AppCompatActivity() {
 
     private var mProgressBarStatus = 0
     private var mProgressBar: ProgressBar? = null
-    private var mLoadingText: TextView? = null
     private var mHandler = Handler()
     private var mActivityPerformImg : ImageView? = null
 
@@ -49,7 +48,6 @@ class RssiActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_perform)
-        //perform_activity_btn.setImageResource(R.drawable.ic_rssi)
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -61,6 +59,8 @@ class RssiActivity : AppCompatActivity() {
 
             mProgressBar = findViewById(R.id.progress_bar)
             mProgressBarStatus = 0
+
+            sensor_val_txt.text = "-113"
 
             mPulsator = findViewById(R.id.pulsator)
             mPulsator!!.start()
