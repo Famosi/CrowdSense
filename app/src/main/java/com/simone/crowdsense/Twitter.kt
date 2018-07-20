@@ -114,8 +114,6 @@ fun twitterOauth(): Request{
     return request
 }
 
-
-
 fun twitterOauthPost(result : String, id : String, issuer : String){
 
     val consumer = CommonsHttpOAuthConsumer(
