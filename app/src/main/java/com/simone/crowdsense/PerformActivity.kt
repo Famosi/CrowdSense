@@ -46,6 +46,11 @@ class PerformActivity : AppCompatActivity(), SensorEventListener {
                     mActivityPerformImg = findViewById(R.id.type_to_perform_img)
                     mActivityPerformImg!!.background = getDrawable(R.drawable.ic_light)
                     mSensor = mSensorManager!!.getDefaultSensor(Sensor.TYPE_LIGHT)
+                    if (mSensor != null){
+                        animation()
+                    } else {
+                        sensor_val_txt.text = "Can't get " + intent.getStringExtra("type_to_perform").capitalize()
+                    }
                 }
 
                 "temperature" -> {
@@ -53,11 +58,46 @@ class PerformActivity : AppCompatActivity(), SensorEventListener {
                     mActivityPerformImg!!.background = getDrawable(R.drawable.ic_temperature)
                     if (mSensorManager!!.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE) == null) {
                         sensor_val_txt.text = "Can't get " + intent.getStringExtra("type_to_perform").capitalize()
+                    } else {
+                        animation()
+                        mSensor = mSensorManager!!.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE)
                     }
                 }
             }
         }
+    }
 
+    override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
+        // Do something here if sensor accuracy changes.
+    }
+
+    override fun onSensorChanged(event: SensorEvent) {
+        val sensor_value = event.values[0]
+        sensor_val_txt.text = "" + sensor_value
+        sensorArrayPerform.add(sensor_value)
+    }
+
+    override fun onResume() {
+        // Register a listener for the sensor.
+        super.onResume()
+        mSensorManager!!.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL)
+    }
+
+    override fun onPause() {
+        //unregister the sensor when the activity pauses.
+        super.onPause()
+        mSensorManager!!.unregisterListener(this)
+    }
+
+    fun getMedia(len : Float) : Float{
+        var sum : Float = 0.toFloat()
+        for (item in sensorArrayPerform) {
+            sum += item
+        }
+        return sum / len
+    }
+
+    fun animation(){
         mProgressBar = findViewById(R.id.progress_bar)
         mProgressBarStatus = 0
 
@@ -92,37 +132,6 @@ class PerformActivity : AppCompatActivity(), SensorEventListener {
             }
         }.start()
 
-
-    }
-
-    override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {
-        // Do something here if sensor accuracy changes.
-    }
-
-    override fun onSensorChanged(event: SensorEvent) {
-        val sensor_value = event.values[0]
-        sensor_val_txt.text = "" + sensor_value
-        sensorArrayPerform.add(sensor_value)
-    }
-
-    override fun onResume() {
-        // Register a listener for the sensor.
-        super.onResume()
-        mSensorManager!!.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL)
-    }
-
-    override fun onPause() {
-        //unregister the sensor when the activity pauses.
-        super.onPause()
-        mSensorManager!!.unregisterListener(this)
-    }
-
-    fun getMedia(len : Float) : Float{
-        var sum : Float = 0.toFloat()
-        for (item in sensorArrayPerform) {
-            sum += item
-        }
-        return sum / len
     }
 
 }
