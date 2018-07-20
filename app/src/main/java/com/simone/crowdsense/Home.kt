@@ -5,7 +5,6 @@ import android.app.*
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
@@ -26,25 +25,16 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.ActionBar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
-import android.view.MenuItem
-import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_home.*
 import java.io.IOException
 import java.util.*
 import okhttp3.*
 import com.google.gson.GsonBuilder
-import kotlinx.android.synthetic.main.nav_header.*
-import kotlinx.android.synthetic.main.nav_header.view.*
-import org.w3c.dom.Text
-import android.support.v4.view.GestureDetectorCompat
 import android.view.Menu
-import android.view.MotionEvent
+import android.view.MenuItem
 import android.widget.Toast
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.model.LatLng
 import com.google.gson.Gson
-import com.twitter.sdk.android.core.models.Tweet
-import org.json.JSONArray
 import java.util.concurrent.TimeUnit
 
 
@@ -57,8 +47,6 @@ var mLocationPermissionGranted = false
 
 class Home : AppCompatActivity(){
 
-    private lateinit var mDrawerLayout: DrawerLayout
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -69,54 +57,7 @@ class Home : AppCompatActivity(){
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        var geocoder = Geocoder(this, Locale.getDefault())
-
-        val actionbar: ActionBar? = supportActionBar
-        actionbar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_menu)
-            actionbar.title = "Home"
-        }
-
-        mDrawerLayout = findViewById(R.id.drawer_layout)
-
         recyclerView_main.layoutManager = LinearLayoutManager(this)
-
-        val sharedPref = getSharedPreferences(
-                getString(R.string.preference_file), Context.MODE_PRIVATE)
-
-        val navigationView: NavigationView = findViewById(R.id.nav_view)
-
-        val headerView = navigationView.getHeaderView(0)
-        headerView.username_menu.text = sharedPref.getString(getString(R.string.user_pref), "user")
-
-
-        navigationView.setNavigationItemSelectedListener { menuItem ->
-            // set item as selected to persist highlight
-            menuItem.isChecked = true
-            // close drawer when item is tapped
-            mDrawerLayout.closeDrawers()
-
-
-            // Add code here to update the UI based on the item selected
-            // For example, swap UI fragments here
-            if (menuItem.itemId == R.id.nav_logout){
-                val sharedPref = getSharedPreferences(
-                        getString(R.string.preference_file), Context.MODE_PRIVATE)
-
-                with (sharedPref.edit()) {
-                    putBoolean("is_log", false)
-                    apply()
-                }
-
-                runOnUiThread {
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-            }
-            true
-        }
 
         getLocationPermission()
 
@@ -155,10 +96,6 @@ class Home : AppCompatActivity(){
             mSwipeRefreshLayout.isRefreshing = false
         }
 
-        val navigationView: NavigationView = findViewById(R.id.nav_view)
-
-        val headerView = navigationView.getHeaderView(0)
-
         val sharedPref = getSharedPreferences(
                 getString(R.string.preference_file), Context.MODE_PRIVATE)
         val user = sharedPref.getString(getString(R.string.user_pref), "user")
@@ -169,11 +106,6 @@ class Home : AppCompatActivity(){
             }
         }.start()
 
-        if (mLocationPermissionGranted && currentPlace != null){
-            val geocoder = Geocoder(this, Locale.getDefault())
-            val user_place = geocoder.getFromLocation(currentPlace!!.latitude!!.toDouble(), currentPlace!!.longitude!!.toDouble(), 1)
-            headerView.place_menu.text = user_place.get(0).locality
-        }
 
     }
 
@@ -185,10 +117,6 @@ class Home : AppCompatActivity(){
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            android.R.id.home -> {
-                mDrawerLayout.openDrawer(GravityCompat.START)
-                true
-            }
             R.id.logout ->  {
                 val sharedPref = getSharedPreferences(
                         getString(R.string.preference_file), Context.MODE_PRIVATE)
