@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">CrowdSense</string>
+    <string name="signup_title">SignUp</string>
+
+    <!-- Strings related to TabItems -->
+    <string name="firstTab">In progress</string>
+    <string name="secondTab">To do</string>
+    <string name="thirdTab">Done</string>
+    <string name="title_activity_menu">Menu</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Strings related to RecyclerView -->
+    <string name="noTask">There are no new tasks to perform</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login/signup -->
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_confirm_psw">Confirm password</string>
+    <string name="action_sign_in_register">Continue</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="go_sign_up"><u>Do you need an account?</u></string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+
+    <!-- Preference file -->
+    <string name="preference_file"><u>preference</u></string>
+    <bool name="is_log">false</bool>
+    <string name="user_pref">user</string>
+
+
+    <!-- Google -->
+    <string name="google_api_key"><u>AIzaSyCYsdYbnxPyyx9S8-Lhf7CqMmB3mggIto4</u></string>
+    <string name="title_activity_home_tab">HomeTab</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- Channel -->
+    <string name="channel_name">channelNotification</string>
+    <string name="channel_description">channelNotification</string>
+
+
+</resources>

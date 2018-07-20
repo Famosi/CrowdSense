@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="12dp"
+    android:background="@drawable/rounded_shape"
+    android:elevation="15dp"
+    android:orientation="vertical"
+    tools:context=".Task">
+
+    <TextView
+        android:id="@+id/what_txt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="11dp"
+        android:layout_weight="0.57"
+        android:fontFamily="sans-serif"
+        android:lineSpacingExtra="8sp"
+        android:paddingBottom="0dp"
+        android:text="What"
+        android:textAlignment="center"
+        android:textColor="@color/text_color_primary"
+        android:textSize="30sp" />
+
+    <RelativeLayout
+        android:id="@+id/map_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.35">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.example.mapwithmarker.MapsMarkerActivity" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/task_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_weight="0.35">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/text_color_primary"
+            android:orientation="vertical"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/address_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="8sp"
+                android:text="Address"
+                android:textColor="@android:color/black"
+                android:drawablePadding="25dp"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/description_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="8sp"
+                android:text="Description"
+                android:textColor="@android:color/black"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/delete_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="30"
+                    android:background="@drawable/rounded_shape_delete"
+                    android:clickable="true"
+                    android:elevation="13dp"
+                    android:padding="0dp"
+                    android:src="@drawable/ic_delete"
+                    android:text="Delete"
+                    android:textColor="@color/text_color_primary"
+                    app:backgroundTint="@color/delete"
+                    app:elevation="0dp"
+                    app:layout_anchorGravity="bottom|right|end" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/accept_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="20"
+                    android:clickable="true"
+                    android:elevation="13dp"
+                    android:src="@drawable/ic_check"
+                    android:textColor="@color/text_color_primary"
+                    app:backgroundTint="@color/accept"
+                    app:elevation="0dp"
+                    app:layout_anchorGravity="bottom|right|end" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/perform_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="30"
+                    android:background="@drawable/rounded_shape"
+                    android:clickable="true"
+                    android:elevation="13dp"
+                    android:focusable="true"
+                    android:src="@drawable/ic_perform"
+                    android:text="Perform"
+                    android:textColor="@color/text_color_primary"
+                    app:backgroundTint="@color/colorPrimary"
+                    app:elevation="0dp"
+                    app:layout_anchorGravity="bottom|right|end" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/photo_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:src="@mipmap/ic_launcher" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>
