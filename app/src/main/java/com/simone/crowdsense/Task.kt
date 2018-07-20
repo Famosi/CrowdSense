@@ -222,7 +222,7 @@ class TaskActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         else if (requestCode == REQUEST_IMAGE_CAPTURE) {
             if (resultCode == Activity.RESULT_OK){
-                setPic()
+                //setPic()
                 val t = Thread{
                     run {
                         if (intent.hasExtra("tweetID")){
@@ -277,7 +277,7 @@ class TaskActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
-
+/*
     private fun galleryAddPic() {
         val mediaScanIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
         val f = File(mCurrentPhotoPath)
@@ -309,7 +309,7 @@ class TaskActivity : AppCompatActivity(), OnMapReadyCallback {
         val bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions)
         photo_img.setImageBitmap(bitmap)
     }
-
+*/
     @Throws(IOException::class)
     private fun createImageFile(): File {
         // Create an image file name
