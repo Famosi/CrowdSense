@@ -1,5 +1,5 @@
 # CrowdSense
-Crowdsensing App for Laboratorio di applicazioni mobili.
+Crowdsensing App.
 
 This app notify users of a new task to take measurement from sensors device.
 
