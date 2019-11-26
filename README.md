@@ -33,7 +33,7 @@ Each task is a JSON object with the following format:
 
 • **what** [string] what are we interested in, this is an arbitrary string, it only contains information on what we are aiming to observe.
 
-The tasks, issued as twitter posts containing the hashtag #LAM_CROWD18 and the JSON string, are taken using the [Named Link](https://developer.twitter.com/en/docs "Twitter API"). 
+The tasks, issued as twitter posts containing the hashtag #LAM_CROWD18 and the JSON string, are taken using the [Twitter API](https://developer.twitter.com/en/docs "Twitter API"). 
 
 The application notifies whenever a new task is being posted and the user has to manually accept it (or reject it). Once the task has been accepted it is saved locally until it is performed. Whenever the conditions for performing the task are met (the user is in the correct area within the task duration) the user is notified about the chance of performing the task.
 
