@@ -9,7 +9,9 @@ Each task consists of detecting data from the environment through the use of sen
 Each task is a JSON object with the following format:
 ```       
 {
-  "ID" : "LookForKoalas" "issuer" : "LAM_UNIBO_2018", "type" : "picture",
+  "ID" : "LookForKoalas", 
+  "issuer" : "LAM_UNIBO_2018", 
+  "type" : "picture",
   "lat" : "-37.835309",
   "lon" : "145.047363", "radius" : "1.0",
   "duration" : "5",
