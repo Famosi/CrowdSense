@@ -7,10 +7,9 @@ These tasks are taken from tweets on Twitter.
 
 ## Screenshots
 <img width="30%" src="https://i.imgur.com/ceC7y1C.jpg">
-
-![alt text](https://github.com/FaMoSi/CrowdSense/edit/master/screenshots/Home.png Home)
-![alt text](https://github.com/FaMoSi/CrowdSense/edit/master/screenshots/Task.png Task)
-![alt text](https://github.com/FaMoSi/CrowdSense/edit/master/screenshots/Perform.png Perform Sound Task)
+<img width="30%" src="https://i.imgur.com/ceC7y1C.jpg">
+<img width="30%" src="https://i.imgur.com/ceC7y1C.jpg">
+<img width="30%" src="https://i.imgur.com/ceC7y1C.jpg">
 
 ## About the project
 The homepage of the app provides a list of available tasks. 
