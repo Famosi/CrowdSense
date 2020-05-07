@@ -7,6 +7,7 @@ These tasks are taken from tweets on Twitter.
 
 ## Screenshots
 ![alt text](https://i.imgur.com/ceC7y1C.jpg Login)
+
 ![alt text](https://github.com/FaMoSi/CrowdSense/edit/master/screenshots/Home.png Home)
 ![alt text](https://github.com/FaMoSi/CrowdSense/edit/master/screenshots/Task.png Task)
 ![alt text](https://github.com/FaMoSi/CrowdSense/edit/master/screenshots/Perform.png Perform Sound Task)
