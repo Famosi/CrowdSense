@@ -6,7 +6,7 @@ The app provide different type of tasks, performable using different sensors (e.
 These tasks are taken from tweets on Twitter.
 
 ## Screenshots
-<img width="20%" align="left" src="https://imgur.com/MFtkXB6">
+<img width="20%" align="left" src="https://i.imgur.com/MFtkXB6.jpg">
 <img width="20%" align="left" src="https://i.imgur.com/ceC7y1C.jpg">
 <img width="20%" align="left" src="https://i.imgur.com/EEDgDwO.jpg">
 <img width="20%" src="https://i.imgur.com/6IEm6R9.jpg">
