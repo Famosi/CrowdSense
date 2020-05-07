@@ -7,9 +7,9 @@ These tasks are taken from tweets on Twitter.
 
 ## Screenshots
 <img width="30%" align="left" src="https://i.imgur.com/ceC7y1C.jpg">
-<img width="30%" src="https://i.imgur.com/ceC7y1C.jpg">
-<img width="30%" src="https://i.imgur.com/ceC7y1C.jpg">
-<img width="30%" src="https://i.imgur.com/ceC7y1C.jpg">
+<img width="30%" align="left" src="https://i.imgur.com/ceC7y1C.jpg">
+<img width="30%" align="left" src="https://i.imgur.com/ceC7y1C.jpg">
+<img width="30%" align="left" src="https://i.imgur.com/ceC7y1C.jpg">
 
 ## About the project
 The homepage of the app provides a list of available tasks. 
