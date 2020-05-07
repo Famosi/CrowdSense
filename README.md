@@ -6,7 +6,7 @@ The app provide different type of tasks, performable using different sensors (e.
 These tasks are taken from tweets on Twitter.
 
 ## Screenshots
-<img width="350" height="350" src="https://i.imgur.com/ceC7y1C.jpg">
+<img width="30%" src="https://i.imgur.com/ceC7y1C.jpg">
 
 ![alt text](https://github.com/FaMoSi/CrowdSense/edit/master/screenshots/Home.png Home)
 ![alt text](https://github.com/FaMoSi/CrowdSense/edit/master/screenshots/Task.png Task)
