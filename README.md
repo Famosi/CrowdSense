@@ -1,9 +1,18 @@
 # CrowdSense
-This is an Android crowdsensing app developed for academic purpose.
+**This is an Android crowdsensing app developed for academic purpose.**
+
+The aim of the project is to learn how to handle different type of **sensors** and practice with **HTTP request** in **Android**.
+The app provide different type of tasks, performable using different sensors (e.g. microphone, camera, etc...).
+These tasks are taken from tweets on Twitter.
+
+## Screenshots
+![alt text](https://github.com/FaMoSi/CrowdSense/edit/master/screenshots/Login.png Login)
+![alt text](https://github.com/FaMoSi/CrowdSense/edit/master/screenshots/Home.png Home)
+![alt text](https://github.com/FaMoSi/CrowdSense/edit/master/screenshots/Task.png Task)
+![alt text](https://github.com/FaMoSi/CrowdSense/edit/master/screenshots/Perform.png Perform Sound Task)
 
 ## About the project
 The homepage of the app provides a list of available tasks. 
-
 Each task consists of detecting data from the environment through the use of sensors' phone.
 
 Each task is a JSON object with the following format:
